@@ -1,24 +1,36 @@
-import logo from './logo.svg';
 import './App.css';
+import Header from './components/layout/Header';
+import { Provider } from 'react-redux'
+import store from './store'
+import QuestionsCount from './components/quiz/QuestionsCount';
+import GetQuestions from './components/quiz/GetQuestions';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Provider store={store}>
+      <Header />
+      <div className="container">
+        <div className="row align-items-center">
+          <QuestionsCount
+            heading='Total Questions'
+            color='bg-dark'
+            count='10'
+          />
+          <QuestionsCount
+            heading='Question Number'
+            color='bg-success'
+            count='10'
+          />
+
+          <QuestionsCount
+            heading='Remaining Question'
+            color='bg-danger'
+            count='10'
+          />
+        </div>
+        <GetQuestions />
+      </div>
+    </Provider>
   );
 }
 
