@@ -1,4 +1,4 @@
-import { GET_QUESTIONS } from "../actions/types";
+import { GET_QUESTIONS, NEXT_QUESTION } from "../actions/types";
 
 const initialState = {
     questions: [ /* now im adding contact using the API */],
@@ -13,6 +13,11 @@ const questionsReducer = (state = initialState, action) => {
             return {
                 ...state,
                 questions: action.payload
+            }
+        case NEXT_QUESTION:
+            return {
+                ...state,
+                questionNumber: state.questionNumber + 1
             }
         default:
             return state
