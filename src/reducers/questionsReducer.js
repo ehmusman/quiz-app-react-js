@@ -38,6 +38,7 @@ const questionsReducer = (state = initialState, action) => {
                     }
                 }
             }
+            break;
         case QUIZ_FINISHED:
             return {
                 ...state,
@@ -46,6 +47,7 @@ const questionsReducer = (state = initialState, action) => {
                 getAnswers: [],
                 correctAnswers: [],
             }
+
         default:
             return state
     }
