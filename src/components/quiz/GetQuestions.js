@@ -1,13 +1,12 @@
 import React from 'react'
-import { connect } from 'react-redux'
-import { getQuestions } from '../../actions/quizActions'
+import { useSelector } from 'react-redux'
 import GetSingleQuestion from './GetSingleQuestion'
 import QuestionsCount from './QuestionsCount'
 import { Link } from 'react-router-dom'
 
-function GetQuestions(props) {
-
-    const { questions, questionNumber } = props;
+function GetQuestions() {
+    const questions = useSelector(state => state.questions.questions)
+    const questionNumber = useSelector(state => state.questions.questionNumber)
     const totalQuestions = questions.length;
     const currentQuestion = questionNumber + 1;
     const remainingQuestions = totalQuestions - currentQuestion;
@@ -46,8 +45,5 @@ function GetQuestions(props) {
     )
 }
 
-const mapStateToProps = (state) => ({
-    questions: state.questions.questions,
-    questionNumber: state.questions.questionNumber
-})
-export default connect(mapStateToProps, { getQuestions })(GetQuestions)
+
+export default GetQuestions

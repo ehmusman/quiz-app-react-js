@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
-import { connect } from 'react-redux'
-import { getNextQuestion } from '../../actions/quizActions';
-import { getAnswer } from '../../actions/quizActions'
+import { useSelector, useDispatch } from 'react-redux'
+import { getAnswer, getNextQuestion } from '../../actions/quizActions';
 import Result from './Result';
 
 function SortedAnswers(props) {
+    const questions = useSelector(state => state.questions.questions)
+    const questionNumber = useSelector(state => state.questions.questionNumber)
+    const dispatch = useDispatch();
     const [selectAnswer, setSelectAnswer] = useState('');
     const [isNextQuestion, setIsNextQuestion] = useState(true);
     const [showResult, setShowResult] = useState(false)
@@ -17,20 +19,20 @@ function SortedAnswers(props) {
 
 
         if (selectAnswer !== '') {
-            if (props.questionNumber + 2 === props.questions.length) {
-                props.getNextQuestion()
+            if (questionNumber + 2 === questions.length) {
+                dispatch(getNextQuestion())
                 setIsNextQuestion(false)
-                props.getAnswer({
+                dispatch(getAnswer({
                     question,
                     answer: selectAnswer
-                })
+                }))
                 setSelectAnswer('')
             } else {
-                props.getNextQuestion()
-                props.getAnswer({
+                dispatch(getNextQuestion())
+                dispatch(getAnswer({
                     question,
                     answer: selectAnswer
-                })
+                }))
                 setSelectAnswer('')
             }
         } else if (selectAnswer === '') {
@@ -40,10 +42,10 @@ function SortedAnswers(props) {
     const handleSubmit = () => {
         if (selectAnswer !== '') {
             setShowResult(true)
-            props.getAnswer({
+            dispatch(getAnswer({
                 question,
                 answer: selectAnswer
-            })
+            }))
             setSelectAnswer('')
         } else if (selectAnswer === '') {
             alert('Kindly Select one option')
@@ -95,8 +97,5 @@ function SortedAnswers(props) {
     )
 }
 
-const mapStateToProps = (state) => ({
-    questionNumber: state.questions.questionNumber,
-    questions: state.questions.questions
-})
-export default connect(mapStateToProps, { getNextQuestion, getAnswer })(SortedAnswers)
+
+export default SortedAnswers;

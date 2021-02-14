@@ -1,7 +1,7 @@
 import { GET_ANSWER, GET_QUESTIONS, NEXT_QUESTION, QUIZ_FINISHED } from "../actions/types";
 
 const initialState = {
-    questions: [ /* now im adding contact using the API */],
+    questions: [ /* now im adding questions using the API */],
     questionNumber: 0,
     getAnswers: [],
     correctAnswers: [],

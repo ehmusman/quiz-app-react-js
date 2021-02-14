@@ -1,12 +1,14 @@
 import React from 'react'
-import { connect } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { quizFinish } from '../../actions/quizActions'
 import { Link } from 'react-router-dom'
 
-function Result(props) {
-    const { questions, correctAnswers } = props
+function Result() {
+    const questions = useSelector(state => state.questions.questions)
+    const correctAnswers = useSelector(state => state.questions.correctAnswers)
+    const dispatch = useDispatch();
     const retakeQuiz = () => {
-        props.quizFinish()
+        dispatch(quizFinish())
     }
     return (
         <>
@@ -31,8 +33,4 @@ function Result(props) {
     )
 }
 
-const mapStateToProps = (state) => ({
-    questions: state.questions.questions,
-    correctAnswers: state.questions.correctAnswers
-})
-export default connect(mapStateToProps, { quizFinish })(Result)
+export default Result;

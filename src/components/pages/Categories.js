@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
-import { connect } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { getQuestions } from '../../actions/quizActions'
 function Categories(props) {
+    const dispatch = useDispatch()
     const [count, setCount] = useState(10);
     const [category, setCategory] = useState(9);
     const [level, setLevel] = useState('easy')
@@ -55,7 +56,7 @@ function Categories(props) {
     }
     const handleOnSubmit = () => {
         const data = { count, category, level }
-        props.getQuestions(data)
+        dispatch(getQuestions(data))
         props.history.push('/');
 
     }
@@ -108,4 +109,4 @@ function Categories(props) {
     )
 }
 
-export default connect(null, { getQuestions })(Categories)
+export default Categories;
